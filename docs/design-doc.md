@@ -324,7 +324,7 @@ being actioned. This is not optional — it's patient safety.
 When a supervising vet clicks "Approve", the system records in the database:
 - `approved_by_vet_id` (foreign key to staff table)
 - `approved_at` (UTC timestamp)
-- `approval_note` (optional text — vet's comment)
+- `approval_note` (optional text vet's comment)
 - `record_hash` (SHA-256 of the clinical note content at approval time)
 
 The record_hash creates an audit trail: if anyone edits the note post-approval,

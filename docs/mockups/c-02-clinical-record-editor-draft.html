@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinical Record — Draft — Unijos VTH</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#0d9488' },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 text-sm">
+<div class="flex h-screen overflow-hidden">
+
+  <!-- Sidebar -->
+  <aside class="w-60 bg-white border-r border-slate-200 flex flex-col shrink-0">
+    <div class="px-5 py-4 border-b border-slate-100">
+      <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Unijos VTH</p>
+      <p class="text-sm font-bold text-slate-900 mt-0.5">Small Animal Clinic</p>
+    </div>
+    <nav class="flex-1 px-3 py-3 space-y-0.5">
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-md bg-teal-50 text-teal-700 font-semibold text-sm">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        My Cases
+      </a>
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 text-sm">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        My Rotation
+      </a>
+    </nav>
+    <div class="px-5 py-4 border-t border-slate-100">
+      <p class="text-sm font-medium text-slate-700">Ibrahim Musa</p>
+      <p class="text-xs text-slate-400 mt-0.5">Student · Year 5</p>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Offline warning banner -->
+    <div class="bg-amber-500 text-white text-xs font-semibold px-6 py-2 flex items-center gap-2">
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M1 1l22 22"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+      Offline — changes saved locally and will sync when connection is restored
+    </div>
+
+    <header class="h-14 bg-white border-b border-slate-200 flex items-center px-6 gap-4 shrink-0">
+      <span class="text-sm font-semibold text-slate-800">Small Animal Clinic</span>
+      <span class="flex-1 text-center text-xs text-slate-500">Thursday, 10 April 2026 · 10:23 AM</span>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-slate-500">Ibrahim Musa</span>
+        <button class="text-xs text-slate-400 hover:text-slate-600">Sign out</button>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-auto p-6">
+      <!-- Breadcrumb -->
+      <div class="flex items-center gap-2 text-xs text-slate-400 mb-4">
+        <a href="#" class="hover:text-slate-600">My Cases</a>
+        <span>/</span>
+        <span class="text-slate-700 font-medium">VTH-2026-00047</span>
+      </div>
+
+      <!-- Case header -->
+      <div class="bg-white rounded-lg border border-slate-200 px-5 py-4 mb-5 flex items-center justify-between">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-sm font-semibold text-slate-700 bg-slate-100 px-3 py-1 rounded">VTH-2026-00047</span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600">Draft</span>
+          </div>
+          <p class="text-sm text-slate-600 mt-1.5"><span class="font-medium text-slate-800">Rex</span> · German Shepherd · Male · 5 yrs · 32 kg</p>
+          <p class="text-xs text-slate-400 mt-0.5">Owner: Abdullahi Sani · +234 803 241 5678</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400">Last saved: 10:17 AM (local)</span>
+          <button class="border border-slate-200 text-slate-600 text-xs px-3 py-1.5 rounded hover:bg-slate-50">Save Draft</button>
+          <button class="bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold px-4 py-1.5 rounded-md">Submit for Review</button>
+        </div>
+      </div>
+
+      <!-- 6-section clinical record editor -->
+      <div class="space-y-4">
+
+        <!-- 1. History -->
+        <div class="bg-white rounded-lg border border-slate-200 p-5">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">1. History</label>
+          <textarea rows="4" class="w-full border border-slate-200 rounded-md px-3 py-2 text-sm text-slate-800 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 leading-relaxed" placeholder="Chief complaint, duration, prior treatments, vaccination history...">Owner reports progressive skin lesions on the dorsal surface for approximately 3 weeks. Initially noticed small circular patches of hair loss around the neck region. No prior treatments administered. Dog is vaccinated (rabies, distemper, parvovirus) — last vaccinated March 2026. No known allergies. Diet: commercial dry food (Pedigree Adult).</textarea>
+        </div>
+
+        <!-- 2. Physical Examination -->
+        <div class="bg-white rounded-lg border border-slate-200 p-5">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">2. Physical Examination</label>
+          <textarea rows="5" class="w-full border border-slate-200 rounded-md px-3 py-2 text-sm text-slate-800 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 leading-relaxed" placeholder="Vital signs, body condition score, systematic examination findings...">T: 38.6°C, P: 88 bpm, R: 20 rpm, Wt: 32 kg, BCS: 4/9.
+
+Skin: Multiple circular alopecic patches (2–5 cm diameter) on dorsal neck and interscapular region. Lesion edges show erythema and mild scaling. Central areas show hyperpigmentation. No visible ectoparasites on gross examination.
+
+Mucous membranes: pink, moist. CRT < 2s. Lymph nodes: submandibular LN mildly enlarged bilaterally. Eyes, ears, oral cavity: WNL.</textarea>
+        </div>
+
+        <!-- 3. Problem List & Differential Diagnoses -->
+        <div class="bg-white rounded-lg border border-slate-200 p-5">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">3. Problem List & Differential Diagnoses</label>
+          <textarea rows="4" class="w-full border border-slate-200 rounded-md px-3 py-2 text-sm text-slate-800 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 leading-relaxed" placeholder="List problems and ranked differentials...">Problems:
+1. Multifocal alopecia with erythema and scaling
+
+Differentials (ranked by likelihood):
+1. Dermatophytosis (ringworm) — circular lesions, zoonotic concern
+2. Demodicosis — rule out with deep skin scraping
+3. Bacterial folliculitis — secondary to pruritis
+4. Hypothyroidism — less likely given age, but include</textarea>
+        </div>
+
+        <!-- 4. Diagnostic Tests & Results -->
+        <div class="bg-white rounded-lg border border-slate-200 p-5">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">4. Diagnostic Tests & Results</label>
+          <textarea rows="4" class="w-full border border-slate-200 rounded-md px-3 py-2 text-sm text-slate-800 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 leading-relaxed" placeholder="Tests ordered, results (pending or completed)...">1. Wood's lamp examination — performed; faint green fluorescence noted on 2 lesion edges (suggestive but not confirmatory for Microsporum canis).
+2. Direct microscopy — hair samples collected; awaiting KOH preparation results.
+3. Skin scraping — negative for Demodex mites.
+4. DTM culture — inoculated; results pending (7–14 days).</textarea>
+        </div>
+
+        <!-- 5. Diagnosis & Treatment Plan -->
+        <div class="bg-white rounded-lg border border-slate-200 p-5">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">5. Diagnosis & Treatment Plan</label>
+          <textarea rows="5" class="w-full border border-slate-200 rounded-md px-3 py-2 text-sm text-slate-800 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 leading-relaxed" placeholder="Working/confirmed diagnosis, treatments, medications, dosages...">Working Dx: Dermatophytosis (pending culture confirmation)
+
+Treatment:
+1. Itraconazole 5 mg/kg PO SID × 21 days
+2. Miconazole shampoo — bathe twice weekly, leave on 10 min before rinse
+3. Clip hair around lesions (wide margin)
+
+Owner counseling:
+- Zoonotic risk: advised to wear gloves when handling dog until culture negative
+- Wash dog bedding and items with dilute bleach solution
+- Return in 3 weeks for recheck or sooner if lesions spread</textarea>
+        </div>
+
+        <!-- 6. Follow-up & Prognosis -->
+        <div class="bg-white rounded-lg border border-slate-200 p-5">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">6. Follow-up & Prognosis</label>
+          <textarea rows="3" class="w-full border border-slate-200 rounded-md px-3 py-2 text-sm text-slate-800 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 leading-relaxed" placeholder="Follow-up plan, prognosis, discharge notes...">Follow-up appointment scheduled: 1 May 2026.
+Prognosis: good with treatment compliance. DTM culture results to be communicated to owner by phone when available.
+Discharge note printed and given to owner.</textarea>
+        </div>
+
+      </div>
+
+      <!-- Bottom actions -->
+      <div class="flex items-center justify-between mt-5">
+        <button class="text-sm text-slate-500 hover:text-slate-700">← Back to cases</button>
+        <div class="flex items-center gap-3">
+          <button class="border border-slate-200 text-slate-600 text-sm px-4 py-2 rounded-md hover:bg-slate-50">Save Draft</button>
+          <button class="bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-6 py-2 rounded-md">Submit for Review</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

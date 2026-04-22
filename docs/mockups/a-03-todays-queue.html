@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Today's Queue — Unijos VTH</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#0d9488' },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 text-sm">
+<div class="flex h-screen overflow-hidden">
+
+  <!-- Sidebar -->
+  <aside class="w-60 bg-white border-r border-slate-200 flex flex-col shrink-0">
+    <div class="px-5 py-4 border-b border-slate-100">
+      <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Unijos VTH</p>
+      <p class="text-sm font-bold text-slate-900 mt-0.5">Small Animal Clinic</p>
+    </div>
+    <nav class="flex-1 px-3 py-3 space-y-0.5">
+      <!-- Active -->
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-md bg-teal-50 text-teal-700 font-semibold text-sm">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Today's Queue
+      </a>
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 text-sm">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Patients
+      </a>
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 text-sm">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Appointments
+      </a>
+    </nav>
+    <div class="px-5 py-4 border-t border-slate-100">
+      <p class="text-sm font-medium text-slate-700">Maryam Buba</p>
+      <p class="text-xs text-slate-400 mt-0.5">Receptionist</p>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Top bar -->
+    <header class="h-14 bg-white border-b border-slate-200 flex items-center px-6 gap-4 shrink-0">
+      <span class="text-sm font-semibold text-slate-800">Small Animal Clinic</span>
+      <span class="flex-1 text-center text-xs text-slate-500">Thursday, 10 April 2026 · 10:23 AM</span>
+      <div class="flex items-center gap-3">
+        <button class="bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold px-4 py-2 rounded-md">
+          + Walk-in Patient
+        </button>
+        <span class="text-xs text-slate-500">Maryam Buba</span>
+        <button class="text-xs text-slate-400 hover:text-slate-600">Sign out</button>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="flex-1 overflow-auto p-6">
+      <!-- Page header -->
+      <div class="mb-5">
+        <h1 class="text-lg font-bold text-slate-900">Today's Queue</h1>
+        <p class="text-xs text-slate-500 mt-0.5">10 April 2026 · 7 appointments</p>
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="flex gap-1 mb-4 border-b border-slate-200">
+        <button class="px-4 py-2 text-xs font-semibold text-teal-700 border-b-2 border-teal-600 -mb-px">All (7)</button>
+        <button class="px-4 py-2 text-xs text-slate-500 hover:text-slate-700">Scheduled (2)</button>
+        <button class="px-4 py-2 text-xs text-slate-500 hover:text-slate-700">Checked In (2)</button>
+        <button class="px-4 py-2 text-xs text-slate-500 hover:text-slate-700">In Progress (1)</button>
+        <button class="px-4 py-2 text-xs text-slate-500 hover:text-slate-700">Completed (1)</button>
+      </div>
+
+      <!-- Table -->
+      <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+        <table class="w-full" role="grid" aria-label="Today's appointments">
+          <thead>
+            <tr class="border-b border-slate-100 bg-slate-50">
+              <th class="text-left px-4 py-3 text-xs font-semibold text-slate-600">Time</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-slate-600">Case #</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-slate-600">Owner</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-slate-600">Patient</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-slate-600">Species</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-slate-600">Chief Complaint</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-slate-600">Status</th>
+              <th class="px-4 py-3"></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+
+            <!-- Completed -->
+            <tr class="hover:bg-slate-50/50">
+              <td class="px-4 py-3 text-xs text-slate-500">8:00 AM</td>
+              <td class="px-4 py-3 text-xs font-mono text-slate-700">VTH-2026-00047</td>
+              <td class="px-4 py-3 text-xs text-slate-800 font-medium">Abdullahi Sani</td>
+              <td class="px-4 py-3 text-xs text-slate-700">Rex</td>
+              <td class="px-4 py-3 text-xs text-slate-500">German Shepherd</td>
+              <td class="px-4 py-3 text-xs text-slate-500 max-w-[180px] truncate">Skin lesions and hair loss</td>
+              <td class="px-4 py-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700" aria-label="Status: Completed">Completed</span>
+              </td>
+              <td class="px-4 py-3">
+                <button class="text-xs text-teal-600 hover:text-teal-800 font-medium">View Case</button>
+              </td>
+            </tr>
+
+            <!-- In Progress -->
+            <tr class="hover:bg-slate-50/50 bg-amber-50/30">
+              <td class="px-4 py-3 text-xs text-slate-500">9:30 AM</td>
+              <td class="px-4 py-3 text-xs font-mono text-slate-700">VTH-2026-00048</td>
+              <td class="px-4 py-3 text-xs text-slate-800 font-medium">Chioma Eze</td>
+              <td class="px-4 py-3 text-xs text-slate-700">Kola</td>
+              <td class="px-4 py-3 text-xs text-slate-500">Domestic Cat</td>
+              <td class="px-4 py-3 text-xs text-slate-500 max-w-[180px] truncate">Vomiting, not eating for 3 days</td>
+              <td class="px-4 py-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700" aria-label="Status: In Progress">In Progress</span>
+              </td>
+              <td class="px-4 py-3">
+                <button class="text-xs text-teal-600 hover:text-teal-800 font-medium">View Case</button>
+              </td>
+            </tr>
+
+            <!-- Checked In (walk-in) -->
+            <tr class="hover:bg-slate-50/50">
+              <td class="px-4 py-3 text-xs text-slate-500">
+                10:02 AM
+                <span class="ml-1 text-xs bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded text-[10px]">Walk-in</span>
+              </td>
+              <td class="px-4 py-3 text-xs font-mono text-slate-700">VTH-2026-00049</td>
+              <td class="px-4 py-3 text-xs text-slate-800 font-medium">Hauwa Bello</td>
+              <td class="px-4 py-3 text-xs text-slate-700">Sango</td>
+              <td class="px-4 py-3 text-xs text-slate-500">Mongrel (Dog)</td>
+              <td class="px-4 py-3 text-xs text-slate-500 max-w-[180px] truncate">Difficulty breathing, lethargic</td>
+              <td class="px-4 py-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-700" aria-label="Status: Checked In">Checked In</span>
+              </td>
+              <td class="px-4 py-3">
+                <button class="text-xs text-teal-600 hover:text-teal-800 font-medium">View Case</button>
+              </td>
+            </tr>
+
+            <!-- Checked In -->
+            <tr class="hover:bg-slate-50/50">
+              <td class="px-4 py-3 text-xs text-slate-500">10:30 AM</td>
+              <td class="px-4 py-3 text-xs font-mono text-slate-700">VTH-2026-00050</td>
+              <td class="px-4 py-3 text-xs text-slate-800 font-medium">Rakiya Danjuma</td>
+              <td class="px-4 py-3 text-xs text-slate-700">Bingo</td>
+              <td class="px-4 py-3 text-xs text-slate-500">Rottweiler</td>
+              <td class="px-4 py-3 text-xs text-slate-500 max-w-[180px] truncate">Limping on right hind leg for 2 weeks</td>
+              <td class="px-4 py-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-700" aria-label="Status: Checked In">Checked In</span>
+              </td>
+              <td class="px-4 py-3">
+                <button class="text-xs text-teal-600 hover:text-teal-800 font-medium">View Case</button>
+              </td>
+            </tr>
+
+            <!-- Scheduled -->
+            <tr class="hover:bg-slate-50/50">
+              <td class="px-4 py-3 text-xs text-slate-500">11:30 AM</td>
+              <td class="px-4 py-3 text-xs text-slate-400">—</td>
+              <td class="px-4 py-3 text-xs text-slate-800 font-medium">Musa Tanko</td>
+              <td class="px-4 py-3 text-xs text-slate-400">—</td>
+              <td class="px-4 py-3 text-xs text-slate-400">—</td>
+              <td class="px-4 py-3 text-xs text-slate-500 max-w-[180px] truncate">Annual vaccination and deworming</td>
+              <td class="px-4 py-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700" aria-label="Status: Scheduled">Scheduled</span>
+              </td>
+              <td class="px-4 py-3">
+                <button class="text-xs font-semibold text-white bg-teal-600 hover:bg-teal-700 px-2.5 py-1 rounded">Check In</button>
+              </td>
+            </tr>
+
+            <!-- Scheduled -->
+            <tr class="hover:bg-slate-50/50">
+              <td class="px-4 py-3 text-xs text-slate-500">13:00 PM</td>
+              <td class="px-4 py-3 text-xs text-slate-400">—</td>
+              <td class="px-4 py-3 text-xs text-slate-800 font-medium">Yusuf Aliyu</td>
+              <td class="px-4 py-3 text-xs text-slate-400">—</td>
+              <td class="px-4 py-3 text-xs text-slate-400">—</td>
+              <td class="px-4 py-3 text-xs text-slate-500 max-w-[180px] truncate">Swollen right eye, discharge</td>
+              <td class="px-4 py-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700" aria-label="Status: Scheduled">Scheduled</span>
+              </td>
+              <td class="px-4 py-3">
+                <button class="text-xs font-semibold text-white bg-teal-600 hover:bg-teal-700 px-2.5 py-1 rounded">Check In</button>
+              </td>
+            </tr>
+
+            <!-- Cancelled -->
+            <tr class="hover:bg-slate-50/50 opacity-60">
+              <td class="px-4 py-3 text-xs text-slate-400 line-through">14:00 PM</td>
+              <td class="px-4 py-3 text-xs text-slate-400">—</td>
+              <td class="px-4 py-3 text-xs text-slate-400 line-through">Ngozi Okafor</td>
+              <td class="px-4 py-3 text-xs text-slate-400 line-through">Mimi</td>
+              <td class="px-4 py-3 text-xs text-slate-400 line-through">Persian Cat</td>
+              <td class="px-4 py-3 text-xs text-slate-400 line-through max-w-[180px] truncate">Post-surgery follow-up</td>
+              <td class="px-4 py-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-400" aria-label="Status: Cancelled">Cancelled</span>
+              </td>
+              <td class="px-4 py-3"></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

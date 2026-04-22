@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add / Edit Drug — Unijos VTH</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#0d9488' },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 text-sm">
+
+<!-- Background dimmed -->
+<div class="flex h-screen overflow-hidden opacity-30 pointer-events-none">
+  <aside class="w-60 bg-white border-r border-slate-200 flex flex-col shrink-0">
+    <div class="px-5 py-4 border-b border-slate-100"><p class="text-sm font-bold text-slate-900">Pharmacy</p></div>
+    <nav class="flex-1 px-3 py-3">
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-md bg-teal-50 text-teal-700 font-semibold text-sm">Drug Formulary</a>
+    </nav>
+  </aside>
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <header class="h-14 bg-white border-b border-slate-200"></header>
+    <main class="flex-1 p-6">
+      <div class="bg-white rounded-lg border border-slate-200 h-64"></div>
+    </main>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="fixed inset-0 bg-slate-900/60 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg border border-slate-200">
+
+    <div class="px-6 pt-6 pb-4 border-b border-slate-100 flex items-center justify-between">
+      <div>
+        <h2 class="text-base font-bold text-slate-900">Edit Drug — Itraconazole</h2>
+        <p class="text-xs text-slate-500 mt-0.5">Changes apply immediately to the formulary.</p>
+      </div>
+      <button class="text-slate-400 hover:text-slate-600 p-1">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="px-6 py-5 space-y-4">
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Drug name <span class="text-red-400">*</span></label>
+        <input type="text" value="Itraconazole" class="w-full border border-slate-200 rounded-md px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Category <span class="text-red-400">*</span></label>
+        <select class="w-full border border-slate-200 rounded-md px-3 py-2 text-sm text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-teal-500">
+          <option>Antibiotic</option>
+          <option selected>Antifungal</option>
+          <option>Antiparasitic</option>
+          <option>NSAID</option>
+          <option>Analgesic</option>
+          <option>Anticholinergic</option>
+          <option>Corticosteroid</option>
+          <option>Vaccine</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Standard dosage <span class="text-red-400">*</span></label>
+        <input type="text" value="5 mg/kg PO SID × 21–42 days" class="w-full border border-slate-200 rounded-md px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="e.g. 5 mg/kg PO SID × 21 days" />
+        <p class="text-xs text-slate-400 mt-1">Use plain text. Students will see this as a reference in the clinical record editor.</p>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Applicable species <span class="text-red-400">*</span></label>
+        <div class="flex flex-wrap gap-2 mt-1">
+          <label class="flex items-center gap-1.5 text-xs cursor-pointer">
+            <input type="checkbox" checked class="accent-teal-600" /> Dog
+          </label>
+          <label class="flex items-center gap-1.5 text-xs cursor-pointer">
+            <input type="checkbox" checked class="accent-teal-600" /> Cat
+          </label>
+          <label class="flex items-center gap-1.5 text-xs cursor-pointer">
+            <input type="checkbox" class="accent-teal-600" /> Cattle
+          </label>
+          <label class="flex items-center gap-1.5 text-xs cursor-pointer">
+            <input type="checkbox" class="accent-teal-600" /> Goat
+          </label>
+          <label class="flex items-center gap-1.5 text-xs cursor-pointer">
+            <input type="checkbox" class="accent-teal-600" /> Horse
+          </label>
+          <label class="flex items-center gap-1.5 text-xs cursor-pointer">
+            <input type="checkbox" class="accent-teal-600" /> Poultry
+          </label>
+          <label class="flex items-center gap-1.5 text-xs cursor-pointer">
+            <input type="checkbox" class="accent-teal-600" /> Fish
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Notes <span class="text-slate-400 font-normal">(optional)</span></label>
+        <textarea rows="3" class="w-full border border-slate-200 rounded-md px-3 py-2 text-xs text-slate-800 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Contraindications, warnings, storage notes...">Pulse dosing protocol available (5 mg/kg SID for 7 days, then 7 days off — repeat × 3 cycles). Avoid in pregnant animals. Store below 25°C.</textarea>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="deprecated" class="accent-teal-600 w-4 h-4" />
+        <label for="deprecated" class="text-xs text-slate-700">Mark as deprecated <span class="text-slate-400">(hides from student view, shows muted in list)</span></label>
+      </div>
+
+    </div>
+
+    <div class="px-6 pb-6 flex items-center justify-between">
+      <button class="text-sm text-slate-500 hover:text-slate-700">Cancel</button>
+      <button class="bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-6 py-2 rounded-md">Save Changes</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Card Print — Unijos VTH</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#0d9488' },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Times New Roman', 'Georgia', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Print preview wrapper — hides in actual print */
+    @media print {
+      .print-preview-wrapper { display: none !important; }
+      .print-card { box-shadow: none !important; margin: 0 !important; border: none !important; padding: 1cm !important; }
+      body { background: white !important; display: block !important; }
+      .no-print { display: none !important; }
+    }
+    @page {
+      size: A5;
+      margin: 1cm;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 font-sans min-h-screen flex flex-col items-center justify-start py-10">
+
+  <!-- Print preview toolbar (hidden on actual print) -->
+  <div class="print-preview-wrapper mb-6 flex items-center gap-4 text-sm">
+    <span class="text-slate-500">Print Preview — A5 · B&W</span>
+    <button onclick="window.print()" class="bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-5 py-2 rounded-md">
+      🖨 Print
+    </button>
+    <button class="border border-slate-200 bg-white text-slate-600 text-sm px-4 py-2 rounded-md hover:bg-slate-50">
+      ← Back to patient
+    </button>
+  </div>
+
+  <!-- The actual printable card -->
+  <div class="print-card bg-white font-serif text-black p-8 shadow-lg border border-slate-200"
+       style="width: 148mm; min-height: 200mm; box-sizing: border-box;">
+
+    <!-- Header -->
+    <div class="border-b-2 border-black pb-3 mb-4">
+      <p class="text-xs font-bold uppercase tracking-widest text-center">University of Jos</p>
+      <p class="text-base font-bold text-center mt-0.5">Veterinary Teaching Hospital</p>
+      <p class="text-xs text-center mt-0.5">Small Animal Clinic</p>
+    </div>
+
+    <!-- Case number — prominent -->
+    <div class="text-center mb-5">
+      <p class="text-3xl font-bold tracking-wider">VTH-2026-00047</p>
+      <p class="text-xs mt-1 text-gray-600">Case Number</p>
+    </div>
+
+    <!-- Owner -->
+    <div class="mb-4">
+      <p class="text-xs font-bold uppercase tracking-wider border-b border-gray-300 pb-1 mb-2">Owner</p>
+      <div class="space-y-1">
+        <div class="flex gap-2">
+          <span class="text-xs text-gray-500 w-16 shrink-0">Name:</span>
+          <span class="text-sm font-semibold">Abdullahi Sani</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="text-xs text-gray-500 w-16 shrink-0">Phone:</span>
+          <span class="text-sm">+234 803 241 5678</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patient -->
+    <div class="mb-4">
+      <p class="text-xs font-bold uppercase tracking-wider border-b border-gray-300 pb-1 mb-2">Patient</p>
+      <div class="space-y-1">
+        <div class="flex gap-2">
+          <span class="text-xs text-gray-500 w-16 shrink-0">Name:</span>
+          <span class="text-sm font-semibold">Rex</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="text-xs text-gray-500 w-16 shrink-0">Species:</span>
+          <span class="text-sm">Dog (German Shepherd)</span>
+        </div>
+        <div class="flex gap-2 mt-1">
+          <div class="flex gap-2 flex-1">
+            <span class="text-xs text-gray-500 w-16 shrink-0">Sex:</span>
+            <span class="text-sm">Male</span>
+          </div>
+          <div class="flex gap-2 flex-1">
+            <span class="text-xs text-gray-500 w-10 shrink-0">Age:</span>
+            <span class="text-sm">5 years</span>
+          </div>
+          <div class="flex gap-2 flex-1">
+            <span class="text-xs text-gray-500 w-16 shrink-0">Weight:</span>
+            <span class="text-sm">32 kg</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visit -->
+    <div class="mb-6">
+      <p class="text-xs font-bold uppercase tracking-wider border-b border-gray-300 pb-1 mb-2">Visit</p>
+      <div class="space-y-1">
+        <div class="flex gap-2">
+          <span class="text-xs text-gray-500 w-16 shrink-0">Date:</span>
+          <span class="text-sm font-semibold">10 April 2026</span>
+        </div>
+        <div class="flex gap-2 items-start">
+          <span class="text-xs text-gray-500 w-16 shrink-0 mt-0.5">Complaint:</span>
+          <span class="text-sm leading-snug">Skin lesions and progressive hair loss on the dorsal surface for 3 weeks</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="text-xs text-gray-500 w-16 shrink-0">Vaccinated:</span>
+          <span class="text-sm">Yes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spacer for vet notes -->
+    <div class="border border-dashed border-gray-300 rounded p-3 mb-4">
+      <p class="text-xs text-gray-400 italic">For vet use · Notes / Rx</p>
+      <div class="mt-8"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="border-t border-gray-300 pt-2 mt-auto">
+      <p class="text-xs text-gray-400 text-center">Unijos VTH · Printed 10/04/2026</p>
+    </div>
+  </div>
+</body>
+</html>
