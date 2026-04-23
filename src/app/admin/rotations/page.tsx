@@ -117,10 +117,20 @@ export default async function RotationsPage({
                   </td>
                   <td className="px-4 py-3 text-xs text-slate-500">{r.start_date}</td>
                   <td className="px-4 py-3 text-xs text-slate-500">{r.end_date}</td>
-                  <td className="px-4 py-3 text-xs text-slate-500">{r.semester}</td>
-                </tr>
-              )
-            })}
+// ... (keep existing imports)
+import { deleteRotation } from './actions'
+
+// ... (in the mapping loop)
+                  <td className="px-4 py-3 text-right">
+                    <form action={async () => {
+                      'use server'
+                      await deleteRotation(r.id)
+                    }}>
+                      <button type="submit" className="text-xs text-red-600 hover:text-red-800">Delete</button>
+                    </form>
+                  </td>
+// ...
+
             {(rotations ?? []).length === 0 && (
               <tr>
                 <td colSpan={6} className="px-4 py-10 text-center text-sm text-slate-400">
