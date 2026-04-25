@@ -1,6 +1,5 @@
-@import "tailwindcss";
-
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
 
 :root {
   --color-primary: #0d9488;
@@ -65,5 +64,10 @@ button:focus-visible {
   body {
     background: white;
     color: black;
+  }
+
+  /* Hide navigation, sidebar, dashboard elements */
+  nav, aside, header, footer, button, .no-print {
+    display: none !important;
   }
 }
