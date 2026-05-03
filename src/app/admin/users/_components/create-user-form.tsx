@@ -46,6 +46,7 @@ export default function CreateUserForm({ clinics }: { clinics: Clinic[] }) {
     register,
     handleSubmit,
     control,
+    watch,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
@@ -53,7 +54,7 @@ export default function CreateUserForm({ clinics }: { clinics: Clinic[] }) {
     defaultValues: { role: 'RECEPTIONIST', clinic_id: null },
   })
 
-  const selectedRole = control._watch('role')
+  const selectedRole = watch('role')
   const needsClinic = CLINIC_SCOPED_ROLES.includes(selectedRole)
 
   function openForm() {
