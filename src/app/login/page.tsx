@@ -31,7 +31,8 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   })
 
-  async function onSubmit(values: LoginFormValues) {
+  async function onSubmit(values: LoginFormValues, event?: React.BaseSyntheticEvent) {
+    event?.preventDefault()
     setServerError(null)
 
     const { error } = await supabase.auth.signInWithPassword({
@@ -141,10 +142,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-teal-400
-                text-white text-sm font-semibold py-2.5 rounded-md
-                flex items-center justify-center gap-2
-                transition-colors duration-150"
+              className="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-teal-400 text-white text-sm font-semibold py-2.5 rounded-md flex items-center justify-center gap-2 transition-colors duration-150"
             >
               {isSubmitting ? (
                 <>
