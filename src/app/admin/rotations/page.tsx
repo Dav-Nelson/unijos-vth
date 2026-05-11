@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { deleteRotation } from './actions'
 
 export default async function RotationsPage({
   searchParams,
@@ -26,7 +27,7 @@ export default async function RotationsPage({
   // Fetch rotations overlapping this week
   const { data: rotations } = await admin
     .from('rotations')
-    .select('*, users!rotations_student_id_fkey(full_name)')
+    .select('*, users(full_name)') 
     .lte('start_date', sundayISO)
     .gte('end_date', mondayISO)
     .order('start_date')
@@ -41,7 +42,6 @@ export default async function RotationsPage({
     if (type === 'CLINIC') return clinics?.find(c => c.id === id)?.name ?? id
     return labs?.find(l => l.id === id)?.name ?? id
   }
-
 
 
   const prevWeek = new Date(monday); prevWeek.setDate(monday.getDate() - 7)
@@ -93,6 +93,7 @@ export default async function RotationsPage({
               <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600">Start</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600">End</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600">Semester</th>
+              <th className="text-right px-4 py-3 text-xs font-semibold text-slate-600">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -117,10 +118,7 @@ export default async function RotationsPage({
                   </td>
                   <td className="px-4 py-3 text-xs text-slate-500">{r.start_date}</td>
                   <td className="px-4 py-3 text-xs text-slate-500">{r.end_date}</td>
-// ... (keep existing imports)
-import { deleteRotation } from './actions'
-
-// ... (in the mapping loop)
+                  <td className="px-4 py-3 text-xs text-slate-500">{r.semester}</td>
                   <td className="px-4 py-3 text-right">
                     <form action={async () => {
                       'use server'
@@ -129,11 +127,12 @@ import { deleteRotation } from './actions'
                       <button type="submit" className="text-xs text-red-600 hover:text-red-800">Delete</button>
                     </form>
                   </td>
-// ...
-
+                </tr>
+              )
+            })}
             {(rotations ?? []).length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-10 text-center text-sm text-slate-400">
+                <td colSpan={7} className="px-4 py-10 text-center text-sm text-slate-400">
                   No rotations for this week.
                 </td>
               </tr>
