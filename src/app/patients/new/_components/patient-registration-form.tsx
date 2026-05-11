@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
 import { createPatientCase } from '../actions'
-import { toast } from 'sonner'
+// import { toast } from 'sonner'
 
 const patientSchema = z.object({
   owner_name: z.string().min(2, 'Name is required'),
@@ -68,10 +68,10 @@ export function PatientRegistrationForm() {
         is_ambulatory: data.is_ambulatory,
     } as any)
     if (!result.success) {
-      toast.error(result.error)
+      console.error(result.error)
       return
     }
-    toast.success('Patient registered successfully!')
+    console.log('Patient registered successfully!')
     router.push('/queue')
   }
 

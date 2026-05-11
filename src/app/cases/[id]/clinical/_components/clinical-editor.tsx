@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { submitClinicalRecord } from '../actions'
-import { toast } from 'sonner'
+// import { toast } from 'sonner'
 
 const clinicalSchema = z.object({
   chief_complaint: z.string(),
@@ -55,9 +55,9 @@ export function ClinicalEditor({
     setIsSubmitting(false)
 
     if (!result.success) {
-      toast.error('Failed to submit: ' + result.error)
+      console.error('Failed to submit: ' + result.error)
     } else {
-      toast.success('Clinical record submitted for review!')
+      console.log('Clinical record submitted for review!')
     }
   }
 
