@@ -41,15 +41,14 @@ export default async function NewLabRequestPage({
   if (!user) redirect('/login')
 
   // Load case info if case_id provided
-  let caseData: { id: string; case_number: string; owners: { full_name: string } | null } | null = null
-  if (case_id) {
-    const { data } = await supabase
-      .from('cases')
-      .select('id, case_number, owners(full_name)')
-      .eq('id', case_id)
-      .single()
-    caseData = data as typeof caseData
-  }
+  const { data: caseData } = await supabase
+    .from('cases')
+    .select('id, case_number, owners:owner_id(full_name)')
+    .eq('id', case_id || '')
+    .returns<any>()
+    .maybeSingle()
+
+
 
   // If no valid case_id, show a case number search form
   if (!caseData) {
@@ -74,7 +73,8 @@ export default async function NewLabRequestPage({
     )
   }
 
-  const owner = caseData.owners as { full_name: string } | null
+  const nonNullCaseData = caseData as any;
+  const owner = nonNullCaseData?.owners ?? null
 
   return (
     <div className="max-w-2xl">
@@ -83,7 +83,7 @@ export default async function NewLabRequestPage({
       </Link>
       <h1 className="text-lg font-bold text-slate-900 mb-1">New Lab Request</h1>
       <p className="text-xs text-slate-500 mb-5">
-        Case <span className="font-mono font-medium text-teal-700">{caseData.case_number}</span>
+        Case <span className="font-mono font-medium text-teal-700">{nonNullCaseData.case_number}</span>
         {owner && <> · {owner.full_name}</>}
       </p>
 
@@ -94,7 +94,7 @@ export default async function NewLabRequestPage({
       )}
 
       <form action={submitLabRequest} className="space-y-5">
-        <input type="hidden" name="case_id" value={caseData.id} />
+        <input type="hidden" name="case_id" value={nonNullCaseData.id} />
 
         {/* Request type */}
         <div className="bg-white rounded-lg border border-slate-200 p-5">

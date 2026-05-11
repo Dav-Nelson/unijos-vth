@@ -5,24 +5,38 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
+import { createPatientCase } from '../actions'
+import { toast } from 'sonner'
 
-// ── Validation ──────────────────────────────────────────────────────────────
 const patientSchema = z.object({
   owner_name: z.string().min(2, 'Name is required'),
   owner_phone: z.string().regex(/^\+?[0-9]{10,15}$/, 'Invalid phone number'),
   owner_address: z.string().optional(),
   species: z.string().min(1, 'Species is required'),
   breed: z.string().optional(),
-  age_years: z.coerce.number().min(0).optional(),
-  age_months: z.coerce.number().min(0).max(11).optional(),
-  weight_kg: z.coerce.number().positive('Weight must be positive').optional(),
-  sex: z.enum(['M', 'F', 'UNKNOWN']).default('UNKNOWN'),
+  age_years: z.coerce.number().min(0).nullable().optional(),
+  age_months: z.coerce.number().min(0).max(11).nullable().optional(),
+  weight_kg: z.coerce.number().positive('Weight must be positive').nullable().optional(),
+  sex: z.enum(['M', 'F', 'UNKNOWN']).default('UNKNOWN').nullable().optional(),
   chief_complaint: z.string().min(5, 'Complaint is required'),
-  is_ambulatory: z.boolean().default(false),
-  travel_fee: z.coerce.number().optional(),
+  is_ambulatory: z.boolean().default(false).catch(false),
+  travel_fee: z.coerce.number().default(0).catch(0),
 })
 
-type PatientFormValues = z.infer<typeof patientSchema>
+type PatientFormValues = {
+  owner_name: string;
+  owner_phone: string;
+  owner_address?: string;
+  species: string;
+  breed?: string;
+  age_years?: number | null;
+  age_months?: number | null;
+  weight_kg?: number | null;
+  sex?: "M" | "F" | "UNKNOWN" | null;
+  chief_complaint: string;
+  is_ambulatory: boolean;
+  travel_fee: number;
+}
 
 export function PatientRegistrationForm() {
   const router = useRouter()
@@ -32,27 +46,37 @@ export function PatientRegistrationForm() {
     watch,
     formState: { errors, isSubmitting },
   } = useForm<PatientFormValues>({
-    resolver: zodResolver(patientSchema),
+    resolver: zodResolver(patientSchema) as any,
+    defaultValues: {
+      is_ambulatory: false,
+      travel_fee: 0,
+      sex: 'UNKNOWN'
+    },
   })
 
   const isAmbulatory = watch('is_ambulatory')
 
-import { createPatientCase } from '../actions'
-
-// ... (schema remains the same)
-
-  async function onSubmit(data: PatientFormValues) {
-    const result = await createPatientCase(data)
+  async function onSubmit(data: any) {
+    // Cast to match CreateUserInput expectations in actions
+    const result = await createPatientCase({
+        ...data,
+        age_years: data.age_years ?? undefined,
+        age_months: data.age_months ?? undefined,
+        weight_kg: data.weight_kg ?? undefined,
+        sex: data.sex ?? undefined,
+        travel_fee: data.travel_fee,
+        is_ambulatory: data.is_ambulatory,
+    } as any)
     if (!result.success) {
-      alert(result.error)
+      toast.error(result.error)
       return
     }
+    toast.success('Patient registered successfully!')
     router.push('/queue')
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-// ... (rest of the form remains same)
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Owner Section */}
         <div className="space-y-4">
