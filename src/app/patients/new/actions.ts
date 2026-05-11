@@ -1,9 +1,25 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { revalidatePath } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
-export async function createPatientCase(input: any) {
+type CreateUserInput = {
+  owner_name: string;
+  owner_phone: string;
+  owner_address?: string;
+  species: string;
+  breed?: string;
+  age_years?: number | null;
+  age_months?: number | null;
+  weight_kg?: number | null;
+  sex?: 'M' | 'F' | 'UNKNOWN' | null;
+  chief_complaint: string;
+  is_ambulatory: boolean;
+  travel_fee: number;
+  farm_location?: string;
+}
+
+export async function createPatientCase(input: CreateUserInput) {
   const supabase = await createClient()
 
   // 1. Handle Owner Deduplication

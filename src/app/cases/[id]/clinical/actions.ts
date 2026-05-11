@@ -1,7 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { revalidatePath } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 export async function submitClinicalRecord(caseId: string, values: any) {
   const supabase = await createClient()

@@ -1,7 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { revalidatePath } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 export async function createAvianCase(data: any) {
   const supabase = await createClient()
@@ -44,19 +44,22 @@ export async function createAvianCase(data: any) {
   const table = data.category === 'FLOCK' ? 'flock_patients' : 
                 data.category === 'POUND' ? 'pound_patients' : 'individual_patients'
   
-  const patientData = {
+  const patientData: any = {
     case_id: newCase.id,
     species: data.species,
-    ...(data.category === 'FLOCK' && { 
-      flock_size: data.flock_size, sick_count: data.sick_count, 
-      avg_weight_kg: data.avg_weight_kg, housing_type: data.housing_type 
-    }),
-    ...(data.category === 'POUND' && { 
-      pond_size_m2: data.pond_size_m2, fish_count_estimate: data.fish_count_estimate 
-    }),
-    ...(data.category === 'INDIVIDUAL_EXOTIC' && { 
-      age_months: data.age_months, weight_kg: data.weight_kg 
-    })
+  }
+  
+  if (data.category === 'FLOCK') {
+      patientData.flock_size = data.flock_size
+      patientData.sick_count = data.sick_count
+      patientData.avg_weight_kg = data.avg_weight_kg
+      patientData.housing_type = data.housing_type
+  } else if (data.category === 'POUND') {
+      patientData.pond_size_m2 = data.pond_size_m2
+      patientData.fish_count_estimate = data.fish_count_estimate
+  } else if (data.category === 'INDIVIDUAL_EXOTIC') {
+      patientData.age_months = data.age_months
+      patientData.weight_kg = data.weight_kg
   }
 
   await supabase.from(table).insert(patientData)

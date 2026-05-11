@@ -1,7 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { revalidatePath } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 import crypto from 'crypto'
 
 export async function approveClinicalRecord(recordId: string, note?: string) {
@@ -40,7 +40,7 @@ export async function approveClinicalRecord(recordId: string, note?: string) {
     p_vet_id: user.id,
     p_note: note || null,
     p_hash: hash
-  })
+  } as any)
 
   if (txErr) return { success: false, error: txErr.message }
 

@@ -7,7 +7,7 @@ export default async function ClinicalPage({ params }: { params: Promise<{ id: s
 
   const { data: record } = await supabase
     .from('clinical_records')
-    .select('*')
+    .select('chief_complaint, history, examination_findings, diagnosis, treatment_plan, prescriptions')
     .eq('case_id', id)
     .maybeSingle()
 

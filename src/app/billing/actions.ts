@@ -1,7 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { revalidatePath } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 export async function createInvoice(caseId: string, type: 'STANDARD' | 'AMBULATORY', estimatedTotal?: number) {
   const supabase = await createClient()

@@ -28,7 +28,7 @@ export async function submitLabRequest(formData: FormData) {
   }
 
   // Look up the lab by type
-  const labType = TYPE_TO_LAB_TYPE[requestType]
+  const labType = TYPE_TO_LAB_TYPE[requestType] as 'PATHOLOGY' | 'MICROBIOLOGY' | 'PARASITOLOGY'
   const { data: lab } = await supabase
     .from('labs')
     .select('id')
