@@ -48,7 +48,7 @@ export default function LoginPage() {
 
     // Successful login — refresh so the proxy reads the new session
     // and redirects to the correct landing page based on role
-    router.refresh()
+    window.location.href = '/'
   }
 
   return (
