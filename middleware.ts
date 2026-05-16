@@ -65,6 +65,23 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
+  // ── 1.5. Logged in, on root / ─────────────────────────────────────────────
+  //    Redirect to role landing page immediately
+  if (user && pathname === '/') {
+    const { data: profile } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', user.id)
+      .single()
+
+    if (profile?.must_change_password) {
+      return NextResponse.redirect(new URL('/change-password', request.url))
+    }
+
+    const landing = ROLE_LANDING[profile?.role ?? ''] ?? '/queue'
+    return NextResponse.redirect(new URL(landing, request.url))
+  }
+
   // ── 2. Logged in, on /login or /change-password ──────────────────────────
   //    Check must_change_password and route accordingly.
   if (user && (pathname === '/login' || pathname === '/change-password')) {
