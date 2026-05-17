@@ -9,7 +9,17 @@ export default async function Home() {
     redirect('/login')
   }
 
-  const role = user.app_metadata?.role as string
+  // Read role from users table — not app_metadata
+  // app_metadata is not reliably set for all accounts
+  const { data: profile } = await supabase
+    .from('users')
+    .select('role')
+    .eq('id', user.id)
+    .single()
+
+  if (!profile) {
+    redirect('/login')
+  }
 
   const LANDING: Record<string, string> = {
     RECEPTIONIST: '/queue',
@@ -23,5 +33,5 @@ export default async function Home() {
     ADMIN:        '/admin',
   }
 
-  redirect(LANDING[role] ?? '/login')
+  redirect(LANDING[profile.role] ?? '/queue')
 }
