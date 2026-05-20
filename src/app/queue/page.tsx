@@ -7,8 +7,15 @@ export default async function QueuePage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  const clinicId = user?.app_metadata?.clinic_id as string | undefined
-  if (!clinicId) return <p className="text-sm text-red-600">No clinic assigned to your account.</p>
+  const { data: profile } = await supabase
+    .from('users')
+    .select('clinic_id')
+    .eq('id', user!.id)
+    .single()
+
+  if (!profile?.clinic_id) return <p className="text-sm text-red-600">No clinic assigned to your account.</p>
+
+  const clinicId = profile.clinic_id
 
   // Today's window in ISO strings
   const now = new Date()
@@ -51,7 +58,7 @@ export default async function QueuePage() {
           + New Appointment
         </Link>
       </div>
-
+          
       {/* Stats */}
       <div className="grid grid-cols-4 gap-3 mb-5">
         {[

@@ -7,7 +7,15 @@ export default async function GrandRoundsPage({ params }: { params: Promise<{ id
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const role = user.app_metadata?.role as string
+  const { data: userProfile } = await supabase
+  .from('users')
+  .select('role')
+  .eq('id', user.id)
+  .single()
+
+if (!userProfile) redirect('/login')
+const role = userProfile.role
+
   // Receptionists and Pharmacists cannot access clinical pages
   if (['RECEPTIONIST', 'PHARMACIST'].includes(role)) redirect('/login')
 

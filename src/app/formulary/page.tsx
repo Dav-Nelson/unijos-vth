@@ -13,13 +13,23 @@ export default async function FormularyPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const role = user.app_metadata?.role as string
+
+  const { data: profile } = await supabase
+    .from('users')
+    .select('full_name, role')
+    .eq('id', user.id)
+    .single()
+
+  if (!profile) redirect('/login')
+
+  const role = profile.role
   if (!['PHARMACIST', 'STUDENT', 'INTERN', 'RESIDENT_VET', 'LECTURER',
-        'CONSULTANT', 'PROFESSOR', 'ADMIN'].includes(role)) {
-    redirect('/login')
+      'CONSULTANT', 'PROFESSOR', 'ADMIN'].includes(role)) {
+  redirect('/login')
   }
 
   const isPharmacist = role === 'PHARMACIST' || role === 'ADMIN'
+
 
   // Fetch drugs — include deprecated only if explicitly requested
   let query = supabase
@@ -32,12 +42,6 @@ export default async function FormularyPage({
 
   const { data: drugs } = await query
   const allDrugs = drugs ?? []
-
-  const { data: profile } = await supabase
-    .from('users')
-    .select('full_name')
-    .eq('id', user.id)
-    .single()
 
   return (
     <FormularyShell userName={profile?.full_name ?? ''} role={role}>
