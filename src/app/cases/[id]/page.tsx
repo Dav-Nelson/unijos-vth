@@ -8,7 +8,14 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const role = user.app_metadata?.role as string
+  const { data: userProfile } = await supabase
+    .from('users')
+    .select('role')
+    .eq('id', user.id)
+    .single()
+
+  if (!userProfile) redirect('/login')
+  const role = userProfile.role
 
   // Fetch case with owner
   const { data: c } = await supabase
@@ -76,7 +83,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
     day: 'numeric', month: 'long', year: 'numeric',
   })
 
-  const canWriteClinical = ['STUDENT', 'INTERN'].includes(role)
+  const canWriteClinical = ['STUDENT', 'INTERN', 'RESIDENT_VET', 'LECTURER', 'CONSULTANT', 'PROFESSOR'].includes(role)
   const canReview = ['RESIDENT_VET', 'LECTURER', 'CONSULTANT', 'PROFESSOR'].includes(role)
   const isReceptionist = role === 'RECEPTIONIST'
   const canRequestLab = ['STUDENT', 'INTERN', 'RESIDENT_VET', 'LECTURER', 'CONSULTANT', 'PROFESSOR'].includes(role)
